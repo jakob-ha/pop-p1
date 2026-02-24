@@ -33,7 +33,7 @@ This can be accomplished with [socat](https://www.kali.org/tools/socat/#socat), 
 
 Have the emulator write to one of the linked ports and domoticz read from the other. Note that this creates ports in /dev/pts with redirectors in /dev.
 
-Be mindful of permissions, who runs domoticz? Is it the user or root? Who can access the ports? `ls -l /dev` & `ls -l dev/pts` if using socat. Raspberry OS has a Task Manager if you want to see that graphically.
+Be mindful of permissions, who runs domoticz? Is it the user or root? Who can access the ports? `ls -l /dev` & `ls -l dev/pts` if using socat. Raspberry OS has a Task Manager if you want to see who runs a task graphically.
 
 The emulator writes once per second with baud rate 115200.
 
