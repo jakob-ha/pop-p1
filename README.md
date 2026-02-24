@@ -20,7 +20,7 @@ Default values are port 1883 at localhost, edit config to change.
 
 A topic from domoticz will look like "given name"/index#/state so for example: domo/1/state.
 
-You can push to and subscribe to topics. Use `mosquitto_sub -t "topic"` to see if anything's being pushed to some topic at the default connection. [Other flags.](https://mosquitto.org/man/mosquitto_sub-1.html)
+You can publish and subscribe to topics. Use `mosquitto_sub -t "topic"` to see if anything's being pushed to some topic at the default connection. [Other flags](https://mosquitto.org/man/mosquitto_sub-1.html) for mosquitto_sub.
 
 
 ## The [emulator](https://github.com/jakob-ha/pop-p1/blob/main/p1emulator.py) and domoticz
@@ -33,22 +33,30 @@ This can be accomplished with [socat](https://www.kali.org/tools/socat/#socat), 
 
 Have the emulator write to one of the linked ports and domoticz read from the other. Note that this creates ports in /dev/pts with redirectors in /dev.
 
-Be mindful of permissions, who runs domoticz? Is it the user or root? Who can access the ports? `ls -l /dev` & `ls -l dev/pts` if using socat Raspberry OS has a Task Manager if you want to see that graphically.
+Be mindful of permissions, who runs domoticz? Is it the user or root? Who can access the ports? `ls -l /dev` & `ls -l dev/pts` if using socat. Raspberry OS has a Task Manager if you want to see that graphically.
 
 The emulator writes once per second with baud rate 115200.
 
-## The [River](https://github.com/jakob-ha/pop-p1/blob/main/river.py) program
+## The [anomaly chacking program](https://github.com/jakob-ha/pop-p1/blob/main/river.py)
 
 This python program uses [river](https://pypi.org/project/river/) and [paho-mqtt](https://pypi.org/project/paho-mqtt/) to demonstrate subscription to an mqtt server and using that data with an anomaly detector.
 
-Connection details are mosquitto's default on some domoticz topics, edit as needed.
+Connection details are mosquitto's default.
+
+The topics and message composition is specific and needs to be edited to fit what is being pushed by domoticz.
 
 ## Installations and dependencies
-
-This is probably not exhaustive.
 
 For python dependencies you may want to create a [venv](https://docs.python.org/3/library/venv.html) in your project directory to intall dependencies in.
 
 python modules: pyserial paho-mqtt river
 
 domoticz, mosquitto, socat
+
+Maybe not exhaustive.
+
+## Standards
+
+[MQTT](https://mqtt.org/)
+
+[DSMR 5.0.2](https://www.netbeheernederland.nl/publicatie/dsmr-502-p1-companion-standard)
