@@ -4,7 +4,7 @@ import datetime
 import random
 
 
-SERIAL_PORT = "COM1"
+SERIAL_PORT = "/dev/ttyUSB99"
 BAUDRATE = 115200
 INTERVAL = 1
 
@@ -169,3 +169,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
