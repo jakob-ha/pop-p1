@@ -2,7 +2,9 @@
 
 ## [Domoticz](https://www.domoticz.com/) recieving P1 from USB and pushing MQTT
 
-Domoticz is graphical, access from browser, maybe at 192.168.1.192:8080, it will probably tell when installing.
+Domoticz is graphical, access from browser, maybe at localhost:8080, it will probably tell when installing.
+
+Default credentials: admin domoticz
 
 Add hardware in setup -> hardware. 
 
@@ -50,6 +52,12 @@ The topics and message composition is specific and needs to be edited to fit wha
 ## Installations and dependencies
 
 For python dependencies you may want to create a [venv](https://docs.python.org/3/library/venv.html) in your project directory to intall dependencies in.
+
+```
+sudo apt install python3-venv
+python3 -m venv p1env
+source p1env/bin/activate
+```
 
 python modules: pyserial paho-mqtt river
 
