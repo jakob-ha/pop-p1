@@ -40,6 +40,7 @@ class DSMRModel:
 
         self.power = 0.5  # kW initial
         self.last_update = time.monotonic()
+        self.v1offset = 0.0
 
     def current_tariff(self):
         hour = datetime.datetime.now().hour
@@ -72,7 +73,9 @@ class DSMRModel:
         return tariff
 
     def voltages(self):
-        return [230 + random.uniform(-2, 2) for _ in range(3)]
+        voltages = [230 + random.uniform(-2, 2) for _ in range(3)]
+        voltages[0] += self.v1offset
+        return voltages
 
     def currents(self, voltages):
         total_power_w = self.power * 1000
@@ -97,16 +100,6 @@ def f_voltage(v):
 
 def f_current(i):
     return f"{abs(i):03.0f}"
-
-def input_thread(model):
-    while True:
-        cmd = input()
-        try:
-            value = float(cmd)
-            model.power = value
-            print(f"Base load set to {value} kW")
-        except ValueError:
-            print("Enter a numeric value")
 
 model = DSMRModel()
 
@@ -153,8 +146,24 @@ def main():
     ) as ser:
 
         next_send = time.monotonic()
+        old_value_power_offset = 0.0
+        old_value_v1_offset = 0.0
 
         while True:
+            try:
+                value = float(open("poweroffset.txt").read().strip())
+            except:
+                value = 0.0
+            if value != old_value_power_offset:
+                model.power += value
+                old_value_power_offset = value
+            try:
+                value = float(open("v1offset.txt").read().strip())
+            except:
+                value = 0.0
+            if value != old_value_v1_offset:
+                model.v1offset += value
+                old_value_v1_offset = value
             telegram = build_telegram(model)
             ser.write(telegram)
             ser.flush()
@@ -169,4 +178,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
