@@ -37,7 +37,9 @@ Be mindful of permissions, who runs domoticz? Is it the user or root? Who can ac
 
 The emulator writes once per second with baud rate 115200.
 
-## The [anomaly checking program](https://github.com/jakob-ha/pop-p1/blob/main/river.py)
+With the text files in working directory you can save a number which will offset its value in the emulation.
+
+## The [anomaly checking program](https://github.com/jakob-ha/pop-p1/blob/main/riverstatsanomaly.py)
 
 This python program uses [river](https://pypi.org/project/river/) and [paho-mqtt](https://pypi.org/project/paho-mqtt/) to demonstrate subscription to an mqtt server and using that data with an anomaly detector.
 
